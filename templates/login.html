@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous">
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
+    <script>
+        function start() {
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '992521545538-p690tavq00r0vbasnp0isqhmarmeirmk.apps.googleusercontent.com',
+                });
+            });
+        }
+    </script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+
+<body>
+    <div class='flash'>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div id=result class='login'>
+        <h2>You need a google account to sign in and perfome create/edit/delete actions</h2>
+        <button id="signinButton">Sign in with Google</button>
+    </div>
+    
+    <script>
+        $('#signinButton').click(function () {
+            // signInCallback defined in step 6.
+            auth2.grantOfflineAccess().then(signInCallback);
+        });
+
+        function signInCallback(authResult) {
+            if (authResult['code']) {
+
+                // Hide the sign-in button now that the user is authorized, for example:
+                $('#signinButton').attr('style', 'display: none');
+                console.log(authResult['code']);
+                // Send the code to the server
+                $.ajax({
+                    type: 'POST',
+                    url: '/gconnect?state={{STATE}}',
+                    processData: false,
+                    data: authResult['code'],
+                    // to protect against CSRF attacks.
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function (result) {
+                        if (result) {
+                            $('#result').html('Login Successful!</br>' + result + '</br>Redirecting...')
+                            setTimeout(function () {
+                                window.location.href = "/bookstore";
+                            }, 4000);
+                        }
+                    },
+
+                });
+            } else {
+                // There was an error.
+            }
+        }
+    </script>
+
+    
+</body>
+
+</html>

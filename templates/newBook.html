@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{%block title%}
+Add New Book
+{%endblock%}
+{%block content%}
+<h2 class='title'> New Book </h2>
+<div class="container">
+    <form class="form-horizontal" action="{{url_for('newBook', genre_name = genre_name )}}" method='POST'>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name:</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control" required name='name'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="numberOfPages">Number of pages:</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control" name='numberOfPages'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="description">Description:</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control" name='description'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="author">Author:</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control" name='author'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="price">Price:</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control" name='price'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="isbn">ISBN:</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control" required name='isbn'>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type='submit' class="btn btn-default" value='Create'>
+                <a href='{{url_for("genreBooks",genre_name = genre_name)}}' class="btn btn-default"
+                    role="button">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

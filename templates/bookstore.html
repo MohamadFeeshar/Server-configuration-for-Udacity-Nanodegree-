@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{%block title%}
+Genres
+{%endblock%}
+{%block content%}
+
+<!--Error Messeges-->
+<div class='flash'>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li> <strong> {{ message }} </strong> </li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+</div>
+
+<!--Showing recent 5 books added-->
+<h2>Recent Books</h2>
+{% for book in books%}
+<div class="row recentBook">
+	<div class="col-sm-6">
+		<p>{{book.name}}</p>
+		<div class='description'>
+			<p>{{book.description}}</p>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<a href="{{url_for('viewBook', book_id=book.id, genre_id = book.genre_id)}}" class="btn btn-info"
+			role="button">Read more</a>
+	</div>
+</div>
+{% endfor %}
+
+<h2>Genres</h2>
+{% for genre in genres %}
+<div class="jumbotron">
+	<p>{{genre.name}}</p>
+	<div class='description'>
+		<p>{{genre.description}}</p>
+	</div>
+	<a href="{{url_for('genreBooks', genre_name=genre.name)}}" class="btn btn-info pull-right" role="button">Read more</a>
+</div>
+
+{% endfor %}
+{%endblock%}

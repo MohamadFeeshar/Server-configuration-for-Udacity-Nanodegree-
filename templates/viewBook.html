@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+{%block title%}
+{{book.name}} details
+{%endblock%}
+{%block content%}
+<div class="jumbotron">
+	<h2>{{book.name}}</h2>
+	<div class='description'>
+		<p>description:{{book.description}}</p>
+		<p>number of pages: {{book.numberOfPages}} </p>
+		<p>author: {{book.author}} </p>
+		<p>price: {{book.price}} </p>
+		<p>isbn: {{book.isbn}}</p>
+	</div>
+	{%if user != "None"%}
+	<a href='{{url_for("editBook",book_id = book.id, genre_name=genre.name)}}' class="btn btn-primary"
+		role="button">Edit</a>
+	<a href='{{url_for("deleteBook",book_id = book.id, genre_name=genre.name)}}' class="btn btn-danger"
+		role="button">Delete</a>
+	{%endif%}
+	<a href='{{url_for("genreBooks",genre_name = genre.name)}}' class="btn btn-default" role="button">Genre</a>
+</div>
+{%endblock%}

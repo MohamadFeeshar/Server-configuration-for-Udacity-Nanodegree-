@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{%block title%}
+{{genre.name}} Books
+{%endblock%}
+{%block content%}
+<div class='centered'>
+	<h2>{{ genre.name }} Books</h2>
+</div>
+{% if user != 'None'%}
+<a href="{{url_for('newBook', genre_name = genre.name) }}" class="btn btn-info center-block" role="button">Create New
+	Book</a>
+{%endif%}
+<div class='flash'>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li> <strong> {{ message }} </strong> </li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+</div>
+
+{% for book in books %}
+<div class="jumbotron">
+	<p>{{book.name}}</p>
+	<div class='desc'>
+		<p>number of pages: {{book.numberOfPages}} </p>
+		<p>{{book.description}}</p>
+	</div>
+	{% if user != 'None'%}
+	<a href='{{url_for("editBook",book_id = book.id, genre_name=genre.name)}}' class="btn btn-primary"
+		role="button">Edit</a>
+	<a href='{{url_for("deleteBook",book_id = book.id, genre_name=genre.name)}}' class="btn btn-danger"
+		role="button">Delete</a>
+	{% endif %}
+</div>
+{% endfor %}
+<a href='{{ url_for("bookStoreMain") }}' class="btn btn-default pull-right"
+		role="button">Home</a>
+
+{%endblock%}

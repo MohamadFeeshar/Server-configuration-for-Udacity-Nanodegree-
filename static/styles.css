@@ -1,0 +1,32 @@
+body {
+    background-color: lemonchiffon;
+}
+
+.description {
+    margin-left: 5%;
+}
+
+.flash {
+    background: #cee5f5;
+}
+
+#profile {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+/Edge */
+    user-select: none;
+    /* Standard */
+    pointer-events: none;
+    cursor: default;
+}
+.centered{
+   margin:0 auto;
+   text-align:center;
+}
+.recentBook{
+    background-color: lightyellow;
+    padding: 1%;
+}
