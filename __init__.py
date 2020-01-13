@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Flask, render_template
 from flask import request, redirect, jsonify, url_for, flash
 from sqlalchemy import create_engine, asc
@@ -14,16 +15,17 @@ import json
 import random
 import string
 import requests
+import os
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
-engine = create_engine('sqlite:///bookstore.db',
-                       connect_args={'check_same_thread': False})
+engine = create_engine('postgresql://catalog:password@localhost/catalog')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+path = os.path.dirname(__file__)
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open(path+'/client_secrets.json', 'r').read())['web']['client_id']
 CLIENT_SECRET_FILE = 'client_secrets.json'
 
 
