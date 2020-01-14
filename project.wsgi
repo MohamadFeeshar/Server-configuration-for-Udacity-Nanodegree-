@@ -6,3 +6,4 @@ sys.path.insert(0,"/var/www/App/itemCatalog/")
 
 from __init__ import app as application
 application.secret_key = 'super secret key'
+
